@@ -1,0 +1,649 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern High School | Excellence in Education</title>
+    <style>
+        /* ================= CSS VARIABLES ================= */
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #ffcc00;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --bg-light: #f4f7f6;
+            --transition: all 0.3s ease;
+        }
+
+        /* ================= RESET & BASE ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ================= ANIMATIONS ================= */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-in-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ================= HEADER & NAVIGATION ================= */
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li a {
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO SECTION ================= */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+            margin-top: 60px; /* Offset for fixed header */
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            border-radius: 25px;
+            transition: var(--transition);
+            border: 2px solid var(--secondary-color);
+            animation: fadeInUp 1s ease 1s;
+            animation-fill-mode: both;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        /* ================= NOTICE BOARD (MARQUEE) ================= */
+        .notice-board {
+            background-color: #ff4757;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .notice-title {
+            background-color: #2f3542;
+            padding: 10px 20px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .notice-board marquee {
+            font-size: 1.1rem;
+            padding-left: 20px;
+        }
+
+        /* ================= COMMON SECTION STYLES ================= */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 5%;
+        }
+
+        /* ================= ABOUT SECTION ================= */
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .about-img {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+
+        .about-img img:hover {
+            transform: scale(1.02);
+        }
+
+        /* ================= FACILITIES SECTION ================= */
+        .facilities {
+            background-color: white;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            padding: 30px 0 10px;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-icon {
+            animation: pulse 1s infinite;
+            color: var(--secondary-color);
+        }
+
+        .card h3 {
+            padding: 10px 0;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            padding: 0 20px 30px;
+            color: #666;
+        }
+
+        /* ================= GALLERY SECTION ================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 200px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 51, 102, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* ================= CONTACT SECTION ================= */
+        .contact {
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(0, 51, 102, 0.3);
+        }
+
+        .contact-form button {
+            cursor: pointer;
+            border: none;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* ================= MEDIA QUERIES (RESPONSIVE) ================= */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s;
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="nav-container">
+            <div class="logo">
+                🏫 Modern<span>School</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#facilities">Facilities</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-btn" id="menuBtn">☰</div>
+        </div>
+    </header>
+
+    <div class="notice-board">
+        <div class="notice-title">LATEST NEWS</div>
+        <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+            🔔 Admissions are open for the session 2026-2027. Apply before 15th April! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 🏆 Congratulations to the Science Team for winning the State Olympiad! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 📅 Annual Sports Day is scheduled for next month.
+        </marquee>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Empowering Future Leaders</h1>
+            <p>Providing world-class education with state-of-the-art facilities and a holistic learning approach.</p>
+            <a href="#contact" class="btn">Apply Now</a>
+        </div>
+    </section>
+
+    <section class="container" id="about">
+        <h2 class="section-title reveal">About Us</h2>
+        <div class="about-content reveal">
+            <div class="about-text">
+                <h3>Welcome to Modern High School</h3>
+                <br>
+                <p>Established in 1995, Modern High School has been a beacon of academic excellence. We believe in nurturing young minds through a blend of traditional values and modern teaching methodologies.</p>
+                <p>Our highly qualified faculty is dedicated to providing personalized attention to every student, ensuring they not only excel in academics but also grow socially and emotionally.</p>
+                <a href="#" class="btn" style="margin-top: 15px;">Read More</a>
+            </div>
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="School Building">
+            </div>
+        </div>
+    </section>
+
+    <section class="facilities" id="facilities">
+        <div class="container">
+            <h2 class="section-title reveal">Our Facilities</h2>
+            <div class="cards-grid">
+                <div class="card reveal">
+                    <div class="card-icon">📚</div>
+                    <h3>Smart Classrooms</h3>
+                    <p>Interactive digital boards and ergonomic seating for a better learning experience.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">🔬</div>
+                    <h3>Science Labs</h3>
+                    <p>Fully equipped Physics, Chemistry, and Biology labs for practical knowledge.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">⚽</div>
+                    <h3>Sports Complex</h3>
+                    <p>Massive playground, basketball court, and indoor games arena.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">💻</div>
+                    <h3>Computer Lab</h3>
+                    <p>Latest PCs with high-speed internet and coding curriculum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="gallery">
+        <h2 class="section-title reveal">School Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Students">
+                <div class="gallery-overlay">Library</div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Class">
+                <div class="gallery-overlay">Classroom</div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Sports">
+                <div class="gallery-overlay">Sports Day</div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Lab">
+                <div class="gallery-overlay">Science Lab</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Contact Us</h2>
+            <div class="contact-container reveal">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>📍 123 Education Lane, Knowledge City, State, 12345</p>
+                    <p>📞 +91 98765 43210</p>
+                    <p>✉️ info@modernschool.edu</p>
+                    <br>
+                    <h3>Working Hours</h3>
+                    <p>Monday - Friday: 8:00 AM - 4:00 PM</p>
+                    <p>Saturday: 8:00 AM - 12:00 PM</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                        <input type="email" id="email" placeholder="Your Email" required>
+                        <input type="text" id="subject" placeholder="Subject" required>
+                        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Modern High School. All Rights Reserved. | Designed with ❤️</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if(navLinks.classList.contains('active')){
+                menuBtn.innerHTML = '✕';
+            } else {
+                menuBtn.innerHTML = '☰';
+            }
+        });
+
+        // Close menu when a link is clicked (Mobile)
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.innerHTML = '☰';
+            });
+        });
+
+        // Sticky Header Effect on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '5px 5%';
+                header.style.backgroundColor = 'rgba(0, 51, 102, 0.95)';
+            } else {
+                header.style.padding = '15px 5%';
+                header.style.backgroundColor = '#003366';
+            }
+        });
+
+        // Scroll Reveal Animations using Intersection Observer
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Stop observing once revealed
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+
+        // Contact Form Simple Validation Alert
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Thank you, ${name}! Your message has been sent successfully. Our team will contact you soon.`);
+            form.reset();
+        });
+    </script>
+</body>
+</html>
